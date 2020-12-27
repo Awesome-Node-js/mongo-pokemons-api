@@ -2,11 +2,19 @@ const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
 let pokemons = require('./mock-pokemon.js');
 const { success, getUniqueId } = require('./helper.js');
 
 const app = express()
 const port = 3000
+
+mongoose.connect('mongodb+srv://Simon:azerty@cluster0.bzogf.mongodb.net/pokedex?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(_ => console.log('La connexion à MongoDB Atlas a bien été établie'))
+.catch(error => console.warn('Erreur durant la connexion à MongoDB Atlas', error))
 
 app
 .use(favicon(__dirname + '/favicon.ico'))
